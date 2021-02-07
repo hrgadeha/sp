@@ -1,0 +1,162 @@
+from __future__ import unicode_literals
+import frappe
+from datetime import date
+from datetime import datetime, timedelta
+from frappe import msgprint
+from frappe.model.document import Document
+
+class SmartPurchase(Document):
+	def on_submit(self):
+		items = []
+		for i in self.items:
+			item_li = {"item_code": i.item_code,"qty": i.qty,"rate": i.rate,"amount":i.amount,"stock_uom":i.uom,"schedule_date":date.today()}
+			items.append(item_li)
+		purchase_order = frappe.get_doc({
+		"doctype": "Purchase Order",
+		"supplier": self.supplier,
+		"transaction_date": date.today(),
+		"schedule_date": date.today(),
+		"set_warehouse": self.for_warehouse,
+		"items": items,
+		"smart_purchase_mr": self.smart_purchase_mr
+		})
+		purchase_order.insert(ignore_permissions=True)
+		purchase_order.save()
+		msgprint("Purchase Order Created")
+
+
+@frappe.whitelist(allow_guest=True)
+def insert_data(item_group):
+        mt = frappe.db.sql("""select mri.item_code, sum(mri.qty), mri.stock_uom, sum(mri.rate), sum(mri.amount)
+                                from `tabMaterial Request` mr, `tabMaterial Request Item` mri where
+                                mr.status = 'Pending' and mr.docstatus = 1 and mri.parent = mr.name and mri.item_group = %s
+				group by mri.item_code;""",(item_group),as_list=1)
+       	return mt
+
+@frappe.whitelist(allow_guest=True)
+def insert_data_with_brand(item_group,brand):
+	mt = frappe.db.sql("""select mri.item_code, sum(mri.qty), mri.stock_uom, sum(mri.rate), sum(mri.amount)
+                                from `tabMaterial Request` mr, `tabMaterial Request Item` mri where
+                                mr.status = 'Pending' and mr.docstatus = 1 and mri.parent = mr.name and mri.item_group = %s and mri.brand = %s
+                                group by mri.item_code;""",(item_group,brand),as_list=1)
+	return mt
+
+
+@frappe.whitelist(allow_guest=True)
+def insert_data_with_item(item_group,brand,item_code):
+	mt = frappe.db.sql("""select mri.item_code, sum(mri.qty), mri.stock_uom, sum(mri.rate), sum(mri.amount)
+                                from `tabMaterial Request` mr, `tabMaterial Request Item` mri where
+                                mr.status = 'Pending' and mr.docstatus = 1 and mri.parent = mr.name and mri.item_group = %s and mri.brand = %s
+                                and mri.item_code = %s group by mri.item_code;""",(item_group,brand,item_code),as_list=1)
+	return mt
+
+
+@frappe.whitelist(allow_guest=True)
+def insert_data_brand(brand):
+        mt = frappe.db.sql("""select mri.item_code, sum(mri.qty), mri.stock_uom, sum(mri.rate), sum(mri.amount)
+                                from `tabMaterial Request` mr, `tabMaterial Request Item` mri where
+                                mr.status = 'Pending' and mr.docstatus = 1 and mri.parent = mr.name and mri.brand = %s
+                                group by mri.item_code;""",(brand),as_list=1)
+        return mt
+
+
+@frappe.whitelist(allow_guest=True)
+def insert_data_brand_item(brand,item_code):
+        mt = frappe.db.sql("""select mri.item_code, sum(mri.qty), mri.stock_uom, sum(mri.rate), sum(mri.amount)
+                                from `tabMaterial Request` mr, `tabMaterial Request Item` mri where
+                                mr.status = 'Pending' and mr.docstatus = 1 and mri.parent = mr.name and mri.brand = %s and mri.item_code = %s
+                                group by mri.item_code;""",(brand,item_code),as_list=1)
+        return mt
+
+@frappe.whitelist(allow_guest=True)
+def insert_data_item(item_code):
+        mt = frappe.db.sql("""select mri.item_code, sum(mri.qty), mri.stock_uom, sum(mri.rate), sum(mri.amount)
+                                from `tabMaterial Request` mr, `tabMaterial Request Item` mri where
+                                mr.status = 'Pending' and mr.docstatus = 1 and mri.parent = mr.name and mri.item_code = %s
+                                group by mri.item_code;""",(item_code),as_list=1)
+        return mt
+
+
+@frappe.whitelist(allow_guest=True)
+def insert_mr(item_group):
+        mt = frappe.db.sql("""select DISTINCT mri.parent,mri.name from `tabMaterial Request Item` mri, `tabMaterial Request` mr where 
+                                mr.status = 'Pending' and
+                                mri.parent = mr.name and mr.docstatus = 1 and mri.item_group = %s;""",(item_group),as_list=1)
+        return mt
+
+@frappe.whitelist(allow_guest=True)
+def insert_mr_with_brand(item_group,brand):
+        mt = frappe.db.sql("""select DISTINCT mri.parent,mri.name from `tabMaterial Request Item` mri, `tabMaterial Request` mr where 
+                                mr.status = 'Pending' and
+                                mri.parent = mr.name and mr.docstatus = 1 and mri.item_group = %s
+				and mri.brand = %s;""",(item_group,brand),as_list=1)
+        return mt
+
+@frappe.whitelist(allow_guest=True)
+def insert_mr_with_item(item_group,brand,item_code):
+        mt = frappe.db.sql("""select DISTINCT mri.parent,mri.name from `tabMaterial Request Item` mri, `tabMaterial Request` mr where 
+                                mr.status = 'Pending' and
+                                mri.parent = mr.name and mr.docstatus = 1 and mri.item_group = %s and
+				mri.brand = %s and mri.item_code = %s;""",(item_group,brand,item_code),as_list=1)
+        return mt
+
+
+@frappe.whitelist(allow_guest=True)
+def insert_mr_brand(brand):
+        mt = frappe.db.sql("""select DISTINCT mri.parent,mri.name from `tabMaterial Request Item` mri, `tabMaterial Request` mr where 
+                                mr.status = 'Pending' and
+                                mri.parent = mr.name and mr.docstatus = 1
+                                and mri.brand = %s;""",(brand),as_list=1)
+        return mt
+
+@frappe.whitelist(allow_guest=True)
+def insert_mr_brand_item(brand,item_code):
+        mt = frappe.db.sql("""select DISTINCT mri.parent,mri.name from `tabMaterial Request Item` mri, `tabMaterial Request` mr where 
+                                mr.status = 'Pending' and
+                                mri.parent = mr.name and mr.docstatus = 1 
+                                and mri.brand = %s and mri.item_code = %s;""",(brand,item_code),as_list=1)
+        return mt
+
+@frappe.whitelist(allow_guest=True)
+def insert_mr_item(item_code):
+        mt = frappe.db.sql("""select DISTINCT mri.parent,mri.name from `tabMaterial Request Item` mri, `tabMaterial Request` mr where 
+                                mr.status = 'Pending' and
+                                mri.parent = mr.name and mr.docstatus = 1
+                                and mri.item_code = %s;""",(item_code),as_list=1)
+        return mt
+
+@frappe.whitelist(allow_guest=True)
+def transferStock(doc,method):
+	for i in doc.items:
+		if i.total_qty != 0:
+			items = []
+			if i.total_qty >= i.qty:
+				item_li = {"item_code": i.item_code,"qty": i.qty,"uom":i.uom,"s_warehouse":doc.stock_warehouse,"t_warehouse":doc.set_warehouse,"basic_rate":i.rate}
+				items.append(item_li)
+
+			if i.total_qty < i.qty:
+				item_li = {"item_code": i.item_code,"qty": i.total_qty,"uom":i.uom,"s_warehouse":doc.stock_warehouse,"t_warehouse":doc.set_warehouse,"basic_rate":i.rate}
+				items.append(item_li)
+			mt = frappe.get_doc({
+			"doctype": "Stock Entry",
+			"company": doc.company,
+			"stock_entry_type": "Material Transfer",
+			"posting_date": doc.transaction_date,
+			"from_warehouse": doc.stock_warehouse,
+			"to_warehouse": doc.set_warehouse,
+			"sales_order" : doc.name,
+			"items": items
+			})
+			mt.insert(ignore_permissions=True)
+			mt.save(ignore_permissions=True)
+			mt.submit()
+
+
+@frappe.whitelist(allow_guest=True)
+def revStock(doc,method):
+	so = frappe.db.get_list('Stock Entry', filters={'sales_order': doc.name}, fields=['name'])
+	for i in so:
+		sord = frappe.get_doc("Stock Entry",i)
+		sord.cancel()
+
+

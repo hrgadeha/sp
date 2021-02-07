@@ -1,0 +1,36 @@
+{
+ "creation": "2020-03-23 22:54:02.913478",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "mr",
+  "mri"
+ ],
+ "fields": [
+  {
+   "fieldname": "mr",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "MR"
+  },
+  {
+   "fieldname": "mri",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "MRI",
+   "read_only": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-08-06 13:31:41.438462",
+ "modified_by": "Administrator",
+ "module": "Smart Purchase",
+ "name": "Smart Purchase MR",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

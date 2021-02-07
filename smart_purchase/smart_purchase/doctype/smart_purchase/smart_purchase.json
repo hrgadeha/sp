@@ -1,0 +1,134 @@
+{
+ "autoname": "SM-PUR-.###",
+ "creation": "2020-03-23 19:03:37.710777",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_group",
+  "brand",
+  "item_code",
+  "get_items",
+  "column_break_3",
+  "supplier",
+  "for_warehouse",
+  "order_for",
+  "section_break_2",
+  "items",
+  "smart_purchase_mr",
+  "selected_item_mr",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Smart Purchase Item"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Smart Purchase",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "smart_purchase_mr",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Smart Purchase MR",
+   "options": "Smart Purchase MR",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Order To",
+   "options": "Supplier",
+   "reqd": 1
+  },
+  {
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Group",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "brand",
+   "fieldtype": "Link",
+   "label": "Brand",
+   "options": "Brand"
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item Code",
+   "options": "Item"
+  },
+  {
+   "fieldname": "get_items",
+   "fieldtype": "Button",
+   "label": "Get Items"
+  },
+  {
+   "fieldname": "for_warehouse",
+   "fieldtype": "Link",
+   "label": "For Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "fieldname": "order_for",
+   "fieldtype": "Select",
+   "label": "Order For",
+   "options": "\nAll Items From Table\nSelected Items From Table",
+   "reqd": 1
+  },
+  {
+   "fieldname": "selected_item_mr",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Selected Item MR",
+   "options": "Selected Item MR",
+   "read_only": 1
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2020-09-18 14:29:04.332904",
+ "modified_by": "Administrator",
+ "module": "Smart Purchase",
+ "name": "Smart Purchase",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
