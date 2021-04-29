@@ -16,9 +16,13 @@ smart_purchase.egg-info/top_level.txt
 smart_purchase/config/__init__.py
 smart_purchase/config/desktop.py
 smart_purchase/config/docs.py
+smart_purchase/config/smart_purchase.py
 smart_purchase/fixtures/custom_field.json
 smart_purchase/smart_purchase/__init__.py
 smart_purchase/smart_purchase/doctype/__init__.py
+smart_purchase/smart_purchase/doctype/selected_item_mr/__init__.py
+smart_purchase/smart_purchase/doctype/selected_item_mr/selected_item_mr.json
+smart_purchase/smart_purchase/doctype/selected_item_mr/selected_item_mr.py
 smart_purchase/smart_purchase/doctype/smart_purchase/__init__.py
 smart_purchase/smart_purchase/doctype/smart_purchase/smart_purchase.js
 smart_purchase/smart_purchase/doctype/smart_purchase/smart_purchase.json
@@ -30,6 +34,9 @@ smart_purchase/smart_purchase/doctype/smart_purchase_item/smart_purchase_item.py
 smart_purchase/smart_purchase/doctype/smart_purchase_mr/__init__.py
 smart_purchase/smart_purchase/doctype/smart_purchase_mr/smart_purchase_mr.json
 smart_purchase/smart_purchase/doctype/smart_purchase_mr/smart_purchase_mr.py
+smart_purchase/smart_purchase/doctype/supplier_selling_brands/__init__.py
+smart_purchase/smart_purchase/doctype/supplier_selling_brands/supplier_selling_brands.json
+smart_purchase/smart_purchase/doctype/supplier_selling_brands/supplier_selling_brands.py
 smart_purchase/templates/__init__.py
 smart_purchase/templates/pages/__init__.py
 smart_purchase/templates/pages/__pycache__/__init__.py

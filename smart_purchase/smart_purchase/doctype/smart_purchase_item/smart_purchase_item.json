@@ -13,7 +13,9 @@
   "qty",
   "uom",
   "rate",
-  "amount"
+  "amount",
+  "mr",
+  "mri"
  ],
  "fields": [
   {
@@ -86,10 +88,22 @@
    "fieldtype": "Check",
    "in_list_view": 1,
    "label": "Use"
+  },
+  {
+   "fieldname": "mr",
+   "fieldtype": "Data",
+   "label": "MR",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mri",
+   "fieldtype": "Data",
+   "label": "MRI",
+   "read_only": 1
   }
  ],
  "istable": 1,
- "modified": "2020-08-01 14:08:09.524131",
+ "modified": "2021-04-12 19:48:48.342545",
  "modified_by": "Administrator",
  "module": "Smart Purchase",
  "name": "Smart Purchase Item",

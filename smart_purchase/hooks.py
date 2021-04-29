@@ -79,15 +79,6 @@ app_license = "MIT"
 # ---------------
 # Hook on document methods and events
 
-doc_events = {
-# 	"Sales Order": {
- #		"on_submit": "smart_purchase.smart_purchase.doctype.smart_purchase.smart_purchase.transferStock"
-#	},
-	"Purchase Order": {
-                "on_submit": "smart_purchase.smart_purchase.doctype.smart_purchase.smart_purchase.closeMR",
-                "on_cancel": "smart_purchase.smart_purchase.doctype.smart_purchase.smart_purchase.revertMR"
-        }
-}
 
 # Scheduled Tasks
 # ---------------
