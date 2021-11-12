@@ -31,9 +31,6 @@ smart_purchase/smart_purchase/doctype/smart_purchase/test_smart_purchase.py
 smart_purchase/smart_purchase/doctype/smart_purchase_item/__init__.py
 smart_purchase/smart_purchase/doctype/smart_purchase_item/smart_purchase_item.json
 smart_purchase/smart_purchase/doctype/smart_purchase_item/smart_purchase_item.py
-smart_purchase/smart_purchase/doctype/smart_purchase_mr/__init__.py
-smart_purchase/smart_purchase/doctype/smart_purchase_mr/smart_purchase_mr.json
-smart_purchase/smart_purchase/doctype/smart_purchase_mr/smart_purchase_mr.py
 smart_purchase/smart_purchase/doctype/supplier_selling_brands/__init__.py
 smart_purchase/smart_purchase/doctype/supplier_selling_brands/supplier_selling_brands.json
 smart_purchase/smart_purchase/doctype/supplier_selling_brands/supplier_selling_brands.py
@@ -41,3 +38,4 @@ smart_purchase/templates/__init__.py
 smart_purchase/templates/pages/__init__.py
 smart_purchase/templates/pages/__pycache__/__init__.py
 smart_purchase/www/__init__.py
+smart_purchase/www/__pycache__/__init__.py
